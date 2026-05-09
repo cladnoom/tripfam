@@ -1,0 +1,13 @@
+{
+  "name": "malaysia-family-trip",
+  "version": "1.0.0",
+  "description": "Collaborative trip planner for the family Malaysia trip 25 May 2026",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

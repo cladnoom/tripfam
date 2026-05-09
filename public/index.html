@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Malaysia Family Trip 2026 — collaborative planner" />
+<title>Malaysia · Family Trip 2026</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+<!-- Decorative gradient mesh background -->
+<div class="bg-mesh" aria-hidden="true">
+  <div class="bg-blob bg-blob-1"></div>
+  <div class="bg-blob bg-blob-2"></div>
+  <div class="bg-blob bg-blob-3"></div>
+</div>
+
+<!-- ── Header ───────────────────────────────────────────── -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand">
+      <div class="brand-mark">
+        <svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+          <path d="M16 4 L16 28 M4 16 L28 16" opacity="0.3"/>
+          <circle cx="16" cy="16" r="11" />
+          <path d="M11 13 Q16 8 21 13 M11 19 Q16 24 21 19" />
+        </svg>
+      </div>
+      <div class="brand-text">
+        <span class="brand-name">Malaysia 2026</span>
+        <span class="brand-sub">Family Trip Planner</span>
+      </div>
+    </div>
+
+    <nav class="header-nav">
+      <span class="sync-badge" id="syncBadge">
+        <span class="sync-dot"></span>
+        <span class="sync-text">Live</span>
+      </span>
+      <button class="btn btn-ghost" id="shareBtn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/><line x1="15.4" y1="6.5" x2="8.6" y2="10.5"/></svg>
+        Share
+      </button>
+      <button class="btn btn-primary" id="meBtn">
+        <span id="meAvatar" class="me-avatar">M</span>
+        <span id="meName">Me</span>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<!-- ── Hero ─────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">
+      <span class="hero-line"></span>
+      <span class="hero-eyebrow-text">25 May → 3 June 2026 · 10 nights</span>
+      <span class="hero-line"></span>
+    </div>
+
+    <h1 class="hero-title">
+      <span class="hero-italic">A family</span> journey through<br/>
+      <span class="hero-em">Malaysia</span>
+    </h1>
+
+    <p class="hero-sub">Kuala Lumpur · Penang · Langkawi — planned together, in real time, on every device.</p>
+
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">10</div><div class="stat-lbl">Days</div></div>
+      <div class="stat-sep"></div>
+      <div class="stat"><div class="stat-num">3</div><div class="stat-lbl">Cities</div></div>
+      <div class="stat-sep"></div>
+      <div class="stat"><div class="stat-num">3–4</div><div class="stat-lbl">Travellers</div></div>
+      <div class="stat-sep"></div>
+      <div class="stat"><div class="stat-num" id="countdown">—</div><div class="stat-lbl">Days to go</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Main two-column layout ───────────────────────────── -->
+<main class="main-grid">
+
+  <!-- Left column: Itinerary -->
+  <section class="col-itinerary">
+
+    <div class="city-tabs" id="cityTabs"></div>
+
+    <div id="itinerary"></div>
+
+  </section>
+
+  <!-- Right column: Hotels + Collaboration -->
+  <aside class="col-side">
+
+    <!-- Suggestions panel -->
+    <div class="card card-suggestions">
+      <div class="card-head">
+        <h3 class="card-title">Family Suggestions</h3>
+        <span class="badge-soft" id="sugCount">0</span>
+      </div>
+      <p class="card-sub">Drop ideas, vote on each other's. Synced live.</p>
+
+      <form id="sugForm" class="sug-form">
+        <input id="sugDay" placeholder="Which day? (e.g. Day 5 — Penang)" class="input" />
+        <textarea id="sugText" placeholder="Your idea…" class="input input-textarea" rows="2" required></textarea>
+        <button type="submit" class="btn btn-accent btn-block">Post suggestion</button>
+      </form>
+
+      <div class="sug-list" id="sugList"></div>
+    </div>
+
+    <!-- Hotels panel -->
+    <div class="card card-hotels">
+      <div class="card-head">
+        <h3 class="card-title">Where to Stay</h3>
+      </div>
+
+      <div class="hotel-filters" id="hotelFilters">
+        <button class="pill pill-active" data-filter="all">All</button>
+        <button class="pill" data-filter="budget">Budget</button>
+        <button class="pill" data-filter="mid">Mid-range</button>
+        <button class="pill" data-filter="luxury">Luxury</button>
+        <button class="pill" data-filter="apartment">Apartments</button>
+      </div>
+
+      <div class="hotel-list" id="hotelList"></div>
+    </div>
+
+  </aside>
+</main>
+
+<!-- ── Floating notepad button ──────────────────────────── -->
+<button class="fab" id="fabNotes" title="Personal notes">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+</button>
+
+<!-- ── Personal notes drawer ────────────────────────────── -->
+<div class="drawer" id="notesDrawer">
+  <div class="drawer-head">
+    <div>
+      <h3 class="drawer-title">Personal notes</h3>
+      <p class="drawer-sub">Just for you · packing, budget, reminders</p>
+    </div>
+    <button class="icon-btn" id="closeDrawer">×</button>
+  </div>
+  <textarea id="personalPad" class="personal-pad" placeholder="Things to pack…&#10;Budget reminders…&#10;Things to ask the family…"></textarea>
+  <div class="drawer-foot">
+    <span class="muted" id="personalSaveStatus">Saved on this device</span>
+  </div>
+</div>
+<div class="drawer-backdrop" id="drawerBackdrop"></div>
+
+<!-- ── Share modal ──────────────────────────────────────── -->
+<div class="modal" id="shareModal">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h3>Share with family</h3>
+      <button class="icon-btn" id="closeShare">×</button>
+    </div>
+    <p class="muted">Send this link to anyone who should see and edit the trip plan. Notes & suggestions sync live.</p>
+    <div class="share-url">
+      <input id="shareUrl" readonly class="input" />
+      <button class="btn btn-primary" id="copyLink">Copy</button>
+    </div>
+    <div class="share-tips">
+      <div class="tip"><strong>View only</strong> — they can read everything but won't post.</div>
+      <div class="tip"><strong>View + suggest</strong> — default. Anyone can post suggestions.</div>
+      <div class="tip"><strong>Full edit</strong> — also edits day-notes. Default for now.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Name modal ───────────────────────────────────────── -->
+<div class="modal" id="nameModal">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h3>What's your name?</h3>
+    </div>
+    <p class="muted">So your family knows who suggested what.</p>
+    <input id="nameInput" class="input" placeholder="e.g. Mum, Dad, Aiden, Layla…" maxlength="40" />
+    <button class="btn btn-primary btn-block" id="saveName">Save</button>
+  </div>
+</div>
+
+<!-- ── Toast container ──────────────────────────────────── -->
+<div class="toast-stack" id="toastStack"></div>
+
+<footer class="site-foot">
+  <div>Built with care for the family · 25 May 2026</div>
+  <div class="muted">Real-time sync · Polling every 8 s</div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
